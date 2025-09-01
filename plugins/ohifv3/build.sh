@@ -25,7 +25,8 @@ echo "Installing OHIF at: ${install_dir}"
 
 cd ${my_dir}
 rm -rf Viewers
-git clone https://github.com/OHIF/Viewers.git
+# This line has been changed to point to your forked repository
+git clone https://github.com/prabin333/Viewers.git
 cd Viewers
 git checkout d8ef36ed24466988586e19b855d2bbb86f8c657a
 
