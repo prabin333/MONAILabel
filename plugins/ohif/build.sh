@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (c) MONAI Consortium
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,9 +24,9 @@ echo "Installing OHIF at: ${install_dir}"
 
 cd ${my_dir}
 rm -rf Viewers
-git clone https://github.com/OHIF/Viewers.git
+git clone https://github.com/prabin333/MONAILabel.git Viewers
 cd Viewers
-git checkout 1178751ecfb3919ec3d26ba04161e0ea83a44e56
+# git checkout 1178751ecfb3919ec3d26ba04161e0ea83a44e56  # Commented out - specific commit may not exist in your repo
 
 # Viewers/platform/viewer/public/config/default.js
 #git checkout -- ./platform/viewer/public/config/default.js
@@ -60,7 +59,6 @@ fi
 
 yarn config set workspaces-experimental true
 yarn install
-
 rm -rf ./platform/viewer/dist
 QUICK_BUILD=true yarn run build
 
@@ -70,9 +68,9 @@ QUICK_BUILD=true yarn run build
 #git checkout -- yarn.lock
 
 cd ..
-
 rm -rf ${install_dir}
 mv ./Viewers/platform/viewer/dist ${install_dir}
+
 echo "Copied OHIF to ${install_dir}"
 
 rm -rf Viewers
