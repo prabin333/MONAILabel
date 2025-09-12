@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (c) MONAI Consortium
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,12 +24,13 @@ echo "Installing OHIF at: ${install_dir}"
 
 cd ${my_dir}
 rm -rf Viewers
-git clone https://github.com/OHIF/Viewers.git
+git clone https://github.com/prabin333/MONAILabel.git Viewers
 cd Viewers
-git checkout d8ef36ed24466988586e19b855d2bbb86f8c657a
+# git checkout d8ef36ed24466988586e19b855d2bbb86f8c657a  # Commented out - specific commit may not exist in your repo
 
 #cp -r ../extensions/monai-label extensions/
 #cp -r ../modes/monai-label modes/monai-label
+
 cd extensions
 ln -s ../../extensions/monai-label monai-label
 cd ..
@@ -39,9 +39,19 @@ cd modes
 ln -s ../../modes/monai-label monai-label
 cd ..
 
-git apply ../extensions.patch
+# Apply patches if extensions.patch exists
+if [ -f ../extensions.patch ]; then
+    git apply ../extensions.patch
+else
+    echo "Warning: ../extensions.patch not found - skipping patch application"
+fi
 
-cp ../config/monai_label.js platform/app/public/config/monai_label.js
+# Copy config if it exists
+if [ -f ../config/monai_label.js ]; then
+    cp ../config/monai_label.js platform/app/public/config/monai_label.js
+else
+    echo "Warning: ../config/monai_label.js not found - skipping config copy"
+fi
 
 yarn config set workspaces-experimental true
 yarn install
@@ -51,6 +61,7 @@ APP_CONFIG=config/monai_label.js PUBLIC_URL=/ohif/ QUICK_BUILD=true yarn run bui
 
 rm -rf ${install_dir}
 cp -r platform/app/dist/ ${install_dir}
+
 echo "Copied OHIF to ${install_dir}"
 
 cd ..
