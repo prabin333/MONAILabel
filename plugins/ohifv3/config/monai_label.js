@@ -3,8 +3,6 @@ window.config = {
   showStudyList: true,
   extensions: [],
   modes: [],
-  // below flag is for performance reasons, but it might not work for all servers
-
   showWarningMessageForCrossOrigin: true,
   showCPUFallbackMessage: true,
   showLoadingIndicator: true,
@@ -35,4 +33,9 @@ window.config = {
       },
     },
   ],
+  // Add MONAILabel configuration
+  monaiLabel: {
+    enabled: true,
+    endpoint: 'http://localhost:8000',
+  },
 };
